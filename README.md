@@ -25,9 +25,8 @@ public class jeuDeLoie {
 	int TourDeJeu = 1;
 	int premierJet1;
 	int premierJet2;
-	boolean bloque1 = true;
-	boolean bloque2 = true;
-	boolean caseNormale = false;
+	boolean bloque1 = false;
+	boolean bloque2 = false;
 
 	Scanner saisie = new Scanner(System.in);
 	System.out.println("Premier joueur, quel est votre nom ?");
@@ -55,23 +54,17 @@ public class jeuDeLoie {
 
 	    if (bloque1 != true) {
 		emplct1 = jet(emplct1, TourDeJeu);
-		if (emplct1 == 19) {
-		    bloque1 = true;
-		    System.out.println("Le joueur est bloqué");
-		} else {
-		    bloque1 = false;
-		}
-		if (bloque2 != true) {
-		    emplct2 = jet(emplct2, TourDeJeu);
-		    if (emplct2 == 19) {
-			bloque2 = true;
-			System.out.println("Le joueur est bloqué");
-		    }
-
-		} else {
-		    bloque2 = false;
-		}
-
+		System.out.println(nomJoueur1 + " arrive en " + emplct1);
+		bloque1 = isBloque(emplct1);
+	    } else {
+		bloque1 = false;
+	    }
+	    if (bloque2 != true) {
+		emplct2 = jet(emplct2, TourDeJeu);
+		System.out.println(nomJoueur2 + " arrive en " + emplct2);
+		bloque2 = isBloque(emplct2);
+	    } else {
+		bloque2 = false;
 	    }
 
 	    if (emplct1 > caseFin) {
@@ -82,12 +75,11 @@ public class jeuDeLoie {
 		emplct2 = caseFin - (emplct2 - caseFin);
 
 	    }
-	    System.out.println(nomJoueur1 + " arrive en " + emplct1);
-	    System.out.println(nomJoueur2 + " arrive en " + emplct2);
-	    TourDeJeu++;
 
+	    TourDeJeu++;
+	    saisie.close();
 	}
-	saisie.close();
+
     }
 
     static int d6() {
@@ -148,4 +140,17 @@ public class jeuDeLoie {
 	return emplct;
     }
 
+    static boolean isBloque(int emplct) {
+	boolean isBloque = false;
+	if (emplct == 19 || emplct == 31) {
+	    isBloque = true;
+	    System.out.println("Le joueur est bloqué");
+
+	}
+
+	return isBloque;
+
+    }
 }
+
+	
